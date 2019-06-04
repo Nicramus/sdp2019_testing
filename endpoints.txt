@@ -1,0 +1,3 @@
+http://localhost:8080/monetary_operations/v1/convert?inputValue=2&inputUnit=PLN&targetUnit=USD
+
+http://localhost:8080/monetary_operations/v1/sum?firstValue=2&secondValue=2&targetUnit=USD

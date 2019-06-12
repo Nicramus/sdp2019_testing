@@ -1,5 +1,7 @@
 package com.sdp.testing.bl;
 
+import com.sdp.testing.dao.ExchangeRate;
+import com.sdp.testing.dao.ExchangeRepository;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -8,10 +10,13 @@ import javax.money.spi.Bootstrap;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MoneyApiTest {
 
@@ -38,7 +43,12 @@ public class MoneyApiTest {
         Currency currencyPLN = new Currency(amountPln, CurrencyUnit.PLN);
 
         //integration!
-        Exchange exchange = new Exchange();
+        ExchangeRepository exchangeRepositoryMock = mock(ExchangeRepository.class);
+
+        Optional<ExchangeRate> exchangeRate = Optional.of(new ExchangeRate("PLNTOUSD", new BigDecimal(0.26)));
+        when(exchangeRepositoryMock.findByKey("PLNTOUSD")).thenReturn(exchangeRate);
+
+        Exchange exchange = new Exchange(exchangeRepositoryMock);
         MonetaryOperation monetaryOperation = new MonetaryOperation(exchange);
 
         try {

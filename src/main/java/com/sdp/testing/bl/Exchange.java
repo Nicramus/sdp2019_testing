@@ -23,8 +23,6 @@ public class Exchange {
         this.exchangeRepository = exchangeRepository;
     }
 
-    public Exchange() {  }
-
     @PostConstruct
     public void init() {
         com.sdp.testing.dao.ExchangeRate er1 = new com.sdp.testing.dao.ExchangeRate("USDTOPLN", new BigDecimal(3.84));
